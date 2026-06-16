@@ -22,7 +22,7 @@ export const BottomNav = () => {
         boxShadow: '0 0.5rem 1.5rem rgba(0, 0, 0, 0.35)',
       }}
     >
-      {navItems.map(({ to, label, icon: Icon }) => (
+      {navItems.map(({ to, icon: Icon }) => (
         <NavLink
           key={to}
           to={to}

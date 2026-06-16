@@ -1,7 +1,6 @@
 import { formatCurrency } from '@/utils/format'
 import type { OrdersByStatusDto } from '@/types'
 import { ORDER_STATUS } from '@/types'
-import { cn } from '@/lib/utils'
 
 interface GoalProgressBarProps {
   data: OrdersByStatusDto[]
