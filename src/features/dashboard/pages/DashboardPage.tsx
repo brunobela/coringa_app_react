@@ -5,8 +5,6 @@ import { MetaCard } from '@/features/dashboard/components/MetaCard'
 import { SalesAreaChart, TopCustomersChart, TopProductsChart } from '@/features/dashboard/components/KpiChart'
 import { GoalProgressBar } from '@/features/dashboard/components/GoalProgressBar'
 import { LoadingSpinner } from '@/components/shared/LoadingSpinner'
-import { useCurrentUser } from '@/features/auth/hooks/useCurrentUser'
-import { USER_ROLES } from '@/config/roles'
 import { formatCurrency } from '@/utils/format'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -14,7 +12,6 @@ const CURRENT_YEAR = new Date().getFullYear()
 const YEAR_OPTIONS = Array.from({ length: 4 }, (_, i) => CURRENT_YEAR - 1 + i)
 
 export const DashboardPage = () => {
-  const { user } = useCurrentUser()
   const [year, setYear] = useState(CURRENT_YEAR)
   const { salesByMonth, salesByCustomer, salesByProduct, ordersByStatus, isLoading } = useDashboardData(year)
 
