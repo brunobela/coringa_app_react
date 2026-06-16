@@ -32,9 +32,9 @@ export const LoginPage = () => (
           <img src={logo} alt="Coringa" className="w-[90px]" />
         </div>
 
-        <div className="mb-7">
-          <h2 className="text-[1.5rem] font-extrabold tracking-tight text-[#0f172a]">Bem-vindo</h2>
-          <p className="mt-1 text-sm text-[#64748b]">Acesse sua conta para continuar</p>
+        <div className="mb-8">
+          <h2 className="text-[1.85rem] font-extrabold tracking-tight text-[#0f172a]">Bem-vindo</h2>
+          <p className="mt-1.5 text-base text-[#64748b]">Acesse sua conta para continuar</p>
         </div>
 
         <LoginForm />

@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { LayoutDashboard, Search, Users, ClipboardList, Lock, LogOut } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, isNavItemActive } from '@/lib/utils'
 import { useLogout } from '@/features/auth/hooks/useLogout'
 import logo from '@/assets/logotipo_coringa.png'
 
@@ -14,6 +14,7 @@ const navItems = [
 
 export const Sidebar = () => {
   const logout = useLogout()
+  const { pathname } = useLocation()
 
   return (
     <aside className="hidden w-[260px] shrink-0 flex-col md:flex" style={{
@@ -31,31 +32,24 @@ export const Sidebar = () => {
       </div>
 
       <nav className="flex flex-1 flex-col gap-0.5 p-3">
-        {navItems.map(({ to, label, icon: Icon }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={to === '/pedidos/novo' ? false : undefined}
-            className={({ isActive }) =>
-              cn(
-                'relative flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-white transition-all duration-200',
+        {navItems.map(({ to, label, icon: Icon }) => {
+          const isActive = isNavItemActive(pathname, to)
+          return (
+            <NavLink
+              key={to}
+              to={to}
+              className={cn(
+                'flex items-center gap-3 rounded-xl border-l-[4px] px-4 py-3 text-sm font-medium text-white transition-all duration-200',
                 isActive
-                  ? 'bg-[#C0392B] font-bold shadow-[0_6px_18px_rgba(192,57,43,0.45)]'
-                  : 'hover:bg-[#DC2626]',
-              )
-            }
-          >
-            {({ isActive }) => (
-              <>
-                {isActive && (
-                  <span className="absolute left-0 top-0 bottom-0 w-[5px] rounded-l-xl bg-white" />
-                )}
-                <Icon className="size-[1.1rem] shrink-0" />
-                {label}
-              </>
-            )}
-          </NavLink>
-        ))}
+                  ? 'border-white bg-[#C0392B] font-bold shadow-[0_6px_18px_rgba(192,57,43,0.45)]'
+                  : 'border-transparent hover:bg-[#DC2626]',
+              )}
+            >
+              <Icon className="size-[1.1rem] shrink-0" />
+              {label}
+            </NavLink>
+          )
+        })}
       </nav>
 
       <div className="border-t border-white/10 p-3 pb-6">

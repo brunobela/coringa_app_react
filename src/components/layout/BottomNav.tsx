@@ -1,6 +1,6 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { Home, Search, ClipboardList, LogOut } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn, isNavItemActive } from '@/lib/utils'
 import { useLogout } from '@/features/auth/hooks/useLogout'
 
 const navItems = [
@@ -11,6 +11,7 @@ const navItems = [
 
 export const BottomNav = () => {
   const logout = useLogout()
+  const { pathname } = useLocation()
 
   return (
     <nav
@@ -22,25 +23,24 @@ export const BottomNav = () => {
         boxShadow: '0 0.5rem 1.5rem rgba(0, 0, 0, 0.35)',
       }}
     >
-      {navItems.map(({ to, icon: Icon }) => (
-        <NavLink
-          key={to}
-          to={to}
-          className={({ isActive }) =>
-            cn(
+      {navItems.map(({ to, icon: Icon }) => {
+        const isActive = isNavItemActive(pathname, to)
+        return (
+          <NavLink
+            key={to}
+            to={to}
+            className={cn(
               'flex flex-1 cursor-pointer items-center justify-center rounded-full border-none bg-transparent text-[#f5f5f5] transition-colors',
               isActive && 'bg-[#48484a]',
-            )
-          }
-        >
-          {({ isActive }) => (
+            )}
+          >
             <Icon
               className={cn('size-[1.4rem] transition-transform active:scale-85', isActive && 'fill-current')}
               strokeWidth={isActive ? 2.5 : 1.8}
             />
-          )}
-        </NavLink>
-      ))}
+          </NavLink>
+        )
+      })}
 
       <button
         onClick={logout}
