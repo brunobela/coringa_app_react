@@ -22,50 +22,6 @@ const CLIENTES_POR_PAGINA = 10
 
 type Step = 1 | 2 | 3
 
-const StepWizard = ({ step }: { step: Step }) => {
-  const steps = ['Cliente', 'Produtos', 'Confirmação']
-  return (
-    <div className="mb-6 flex items-center">
-      {steps.map((label, i) => {
-        const num = (i + 1) as Step
-        const done = num < step
-        const active = num === step
-        return (
-          <div key={label} className="flex flex-1 items-center last:flex-none">
-            <div className="flex flex-col items-center gap-1.5">
-              <div
-                className={cn(
-                  'flex size-10 items-center justify-center rounded-full border-2 text-sm font-bold transition-all',
-                  done && 'border-[#10B981] bg-[#10B981] text-white',
-                  active && 'border-primary bg-primary text-white shadow-[0_0_0_4px_rgba(79,70,229,0.15)]',
-                  !done && !active && 'border-border bg-background text-muted-foreground',
-                )}
-              >
-                {done ? <Check className="size-4" /> : num}
-              </div>
-              <span
-                className={cn(
-                  'text-[0.78rem] font-medium',
-                  active && 'font-bold text-primary',
-                  done && 'text-[#10B981]',
-                  !done && !active && 'text-muted-foreground',
-                )}
-              >
-                {label}
-              </span>
-            </div>
-            {i < steps.length - 1 && (
-              <div
-                className={cn('mb-6 mx-2 h-0.5 flex-1 transition-colors', done ? 'bg-[#10B981]' : 'bg-border')}
-              />
-            )}
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
 const ProgressBar = ({ step }: { step: Step }) => (
   <div className="mb-6 flex gap-2">
     {([1, 2, 3] as Step[]).map((s) => (
@@ -155,7 +111,6 @@ export const NovoPedidoPage = () => {
       </div>
 
       <ProgressBar step={step} />
-      <StepWizard step={step} />
 
       {/* ── STEP 1: Cliente ── */}
       {step === 1 && (
